@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking</title>
+</head>
+<body>
+<h1>Thank you for choosing this hotel</h1><br>
+<h4>Please fill the below form</h4>
+<div class="booking" id="booking">
+  <form action="#" th:action="@{/submit}" th:object="${formData}" method="post">
+    <label for="first_name">First Name</label>
+    <input type="text" id="first_name" name="first_name" th:field="*{first_name}" placeholder="Your first name.." /> <br>
+    <label for="last_name">Last Name</label>
+    <input type="text" id="last_name" name="last_name" placeholder="Your last name.." /> <br>
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" placeholder="Your email.." /> <br>
+    <label for="phone_number">Phone</label>
+    <input type="text" id="phone_number" name="phone_number" placeholder="Your phone number.." /> <br>
+    <label for="check_in">Check-in</label>
+    <input type="date" id="check_in" name="check_in" placeholder="Your check-in date.." /> <br>
+    <label for="check_out">Check-out</label>
+    <input type="date" id="check_out" name="check_out" placeholder="Your check-out date.." /> <br>
+    <label for="room_type">Room</label>
+    <select id="room_type" name="room_type">
+      <option value="King Smoking">King Smoking</option>
+      <option value="King Non-Smoking">King Non-smoking</option>
+      <option value="Queen Smoking">Queen Smoking</option>
+      <option value="Queen Non-Smoking">Queen Non-smoking</option>
+    </select> <br>
+    <label for="adults">Adults</label>
+    <select id="adults" name="adults">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+
+    </select> <br>
+    <label for="children">Children</label>
+    <select id="children" name="children">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select> <br>
+
+    <label for="pets">Pets</label>
+    <select id="pets" name="pets">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select> <br>
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+</body>
+</html>
