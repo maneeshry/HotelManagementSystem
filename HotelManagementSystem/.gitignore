@@ -1,5 +1,5 @@
 HELP.md
-appication.properties
+!**/src/main/resources/appication.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
