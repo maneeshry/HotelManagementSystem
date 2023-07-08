@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Total Price</title>
+</head>
+<body>
+<div class="price" id="price">
+  <form action="#" th:action="@{/form}"  method="get">
+<h2>Price</h2>
+
+<p>The total price for your stay is: <span th:text="${totalPrice}"></span></p>
+      <input type="submit" value="Continue booking..." />
+  </form>
+</div>
+</body>
+</html>
