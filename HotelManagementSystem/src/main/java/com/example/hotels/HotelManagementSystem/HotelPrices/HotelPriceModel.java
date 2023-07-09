@@ -1,7 +1,6 @@
 package com.example.hotels.HotelManagementSystem.HotelPrices;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,34 +9,26 @@ import java.time.LocalDate;
 public class HotelPriceModel {
 
     @Id
-    private int id;
-    private LocalDate date;
+    private LocalDate priceDate;
     private BigDecimal price;
 
-    public HotelPriceModel()
-    {
+
+    public HotelPriceModel(LocalDate priceDate, BigDecimal price) {
+        this.priceDate = priceDate;
+        this.price=price;
+    }
+
+    public HotelPriceModel() {
 
     }
 
-
-
-    public HotelPriceModel(LocalDate currentDate, BigDecimal price) {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public LocalDate getDate() {
-        return date;
+        return priceDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate(LocalDate priceDate) {
+        this.priceDate = priceDate;
     }
 
     public BigDecimal getPrice() {

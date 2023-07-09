@@ -2,53 +2,64 @@ package com.example.hotels.HotelManagementSystem.HotelPrices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class HotelPriceService {
-
-//    public HotelPriceService()
-//    {
-//        generateHotelPricesForThreeMonths();
-//    }
+    //private Map<LocalDate,BigDecimal> map;
 
     @Autowired
     private HotelPriceRepo hotelPriceRepo;
 
+
+
+    @Transactional
     public void generateHotelPricesForThreeMonths() {
+        HotelPriceModel hotelPriceModel = new HotelPriceModel();
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusMonths(3);
-
-        List<HotelPriceModel> hotelPrices = new ArrayList<>();
         LocalDate currentDate = startDate;
+        //map = new HashMap<>();
+
         while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
             BigDecimal price = generatePriceBasedOnDate(currentDate);
-            hotelPrices.add(new HotelPriceModel(currentDate, price));
+            hotelPriceModel = new HotelPriceModel();
+            hotelPriceModel.setDate(currentDate);
+            hotelPriceModel.setPrice(price);
+            hotelPriceRepo.save(hotelPriceModel);
             currentDate = currentDate.plusDays(1);
         }
 
-        hotelPriceRepo.saveAll(hotelPrices);
     }
 
     private BigDecimal generatePriceBasedOnDate(LocalDate date) {
         // Implement your logic to generate price based on the date
         // This is just an example
-        if (date.getDayOfWeek().getValue() <= 5) { // Monday to Friday
+        if (date.getDayOfWeek().getValue() <= 4) { // Monday to Thursday
+            return new BigDecimal("75");
+        }
+        else if (date.getDayOfWeek().getValue() == 5) //Friday
+        {
+            return new BigDecimal("110");
+        }
+        else if (date.getDayOfWeek().getValue() ==6) //Saturday
+        {
+            return new BigDecimal("120");
+        }else { // Sunday
             return new BigDecimal("100");
-        } else { // Saturday and Sunday
-            return new BigDecimal("150");
         }
     }
 
     public BigDecimal calculateTotalPrice(LocalDate checkInDate, LocalDate checkOutDate) {
-        List<HotelPriceModel> hotelPrices = hotelPriceRepo.findByDateBetween(checkInDate, checkOutDate);
-
-        BigDecimal totalPrice = BigDecimal.ZERO;
+        List<HotelPriceModel> hotelPrices = hotelPriceRepo.findByPriceDateBetween(checkInDate, checkOutDate);
         LocalDate currentDate = checkInDate;
+        BigDecimal totalPrice = BigDecimal.ZERO;//map.get(currentDate);//BigDecimal.ZERO;
+        //System.out.println(currentDate+" "+totalPrice);
+
         while (currentDate.isBefore(checkOutDate) || currentDate.isEqual(checkOutDate)) {
             HotelPriceModel hotelPrice = getHotelPriceForDate(hotelPrices, currentDate);
             if (hotelPrice != null) {

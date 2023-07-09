@@ -31,6 +31,7 @@ public class HotelPriceController {
         //model.addAttribute("check_out",priceData.getCheck_out());
         LocalDate checkInDate = priceData.getCheck_in();
         LocalDate checkOutDate = priceData.getCheck_out();
+        service.generateHotelPricesForThreeMonths();
         BigDecimal totalPrice = service.calculateTotalPrice(checkInDate, checkOutDate);
         model.addAttribute("totalPrice", totalPrice);
 
