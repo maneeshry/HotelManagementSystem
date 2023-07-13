@@ -23,11 +23,11 @@ public class HotelPriceModel {
     }
 
 
-    public LocalDate getDate() {
+    public LocalDate getPriceDate() {
         return priceDate;
     }
 
-    public void setDate(LocalDate priceDate) {
+    public void setPriceDate(LocalDate priceDate) {
         this.priceDate = priceDate;
     }
 

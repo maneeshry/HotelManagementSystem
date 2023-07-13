@@ -11,4 +11,8 @@ import java.util.List;
 public interface HotelPriceRepo extends JpaRepository<HotelPriceModel, LocalDate> {
 
     List<HotelPriceModel> findByPriceDateBetween(LocalDate check_in,LocalDate check_out);
+
+    List<HotelPriceModel> findAll();
+
+    HotelPriceModel findByPriceDate(LocalDate priceDate);
 }

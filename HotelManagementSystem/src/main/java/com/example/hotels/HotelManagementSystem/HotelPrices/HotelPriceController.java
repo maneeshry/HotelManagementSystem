@@ -4,19 +4,20 @@ import com.example.hotels.HotelManagementSystem.HotelModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 public class HotelPriceController {
 
     @Autowired
     private HotelPriceService service;
+
+    @Autowired
+    private HotelPriceRepo hotelPriceRepo;
 
 
     @GetMapping("/checkPrice")
@@ -25,14 +26,23 @@ public class HotelPriceController {
         return "checkPrice";
     }
 
-    @GetMapping("/admin")
-    public String adminControlForPrice() {
+    @GetMapping("/adminRepo")
+    public String adminRepo(Model model) {
         service.generateHotelPricesForThreeMonths();
         return "admin";
     }
 
-
-
+    @GetMapping("/admin")
+    public String adminControlForPrice(Model model) {
+        //service.generateHotelPricesForThreeMonths();
+        model.addAttribute("admin",hotelPriceRepo.findAll());
+        return "admin";
+    }
+    @PostMapping("/updatePrice")
+    public String updatePrice(@RequestParam("priceDate") LocalDate priceDate, @RequestParam("price") BigDecimal price) {
+        service.updateHotelPrice(priceDate, price);
+        return "redirect:/admin";
+    }
     @GetMapping("/getPrice")
     public String showPrice(@ModelAttribute("formData") HotelModel formData,@RequestParam("check_in") LocalDate checkInDate,
                                @RequestParam("check_out") LocalDate checkOutDate,@RequestParam("room_type") String room_type,
@@ -55,53 +65,3 @@ public class HotelPriceController {
     }
 
 }
-/*
- @PostMapping("/submit")
-    public String submitForm(@ModelAttribute("formData") HotelModel formData, Model model) throws MessagingException {
-        // Add attributes to the model
-        //model.addAttribute("formData", formData);
-        //long numberOfNights = ChronoUnit.DAYS.between(formData.getCheck_in(), formData.getCheck_out());
-
-        model.addAttribute("first_name",formData.getFirst_name());
-        model.addAttribute("last_name",formData.getLast_name());
-        model.addAttribute("email",formData.getEmail());
-        model.addAttribute("phone_number",formData.getPhone_number());
-        model.addAttribute("check_in",formData.getCheck_in());
-        model.addAttribute("check_out",formData.getCheck_out());
-        //model.addAttribute("nights",numberOfNights);
-        model.addAttribute("room_type",formData.getRoom_type());
-        model.addAttribute("adults",formData.getAdults());
-        model.addAttribute("children",formData.getChildren());
-        model.addAttribute("pets",formData.getPets());
-        model.addAttribute("formData",formData);
-
-        //send email
-        sendEmail(formData);
-        return "email";
-    }
-
-    public void sendEmail(HotelModel formData) throws MessagingException {
-        // Prepare the evaluation context
-        final Context context = new Context();
-        context.setVariable("first_name", formData.getFirst_name());
-        context.setVariable("last_name",formData.getLast_name());
-        context.setVariable("email", formData.getEmail());
-        context.setVariable("phone_number", formData.getPhone_number());
-        context.setVariable("check_in",formData.getCheck_in());
-        context.setVariable("check_out",formData.getCheck_out());
-        //context.setVariable("nights",numberOfNights);
-        context.setVariable("room_type",formData.getRoom_type());
-        context.setVariable("adults",formData.getAdults());
-        context.setVariable("children",formData.getChildren());
-        context.setVariable("pets",formData.getPets());
-
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.javaMailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-        message.setSubject("Hotel Booking Confirmation");
-        message.setFrom(username);
-        message.setTo(formData.getEmail());
-        // Create the HTML body using Thymeleaf
-        final String htmlContent = this.templateEngine.process("email", context);
-        message.setText(htmlContent, true /* isHtml ); */
-        // Send mailthis.javaMailSender.send(mimeMessage);}*/

@@ -39,7 +39,7 @@ public class HotelPriceService {
         while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
             BigDecimal price = generatePriceBasedOnDate(currentDate);
             hotelPriceModel = new HotelPriceModel();
-            hotelPriceModel.setDate(currentDate);
+            hotelPriceModel.setPriceDate(currentDate);
             hotelPriceModel.setPrice(price);
             hotelPriceRepo.save(hotelPriceModel);
             currentDate = currentDate.plusDays(1);
@@ -89,10 +89,18 @@ public class HotelPriceService {
 
     private HotelPriceModel getHotelPriceForDate(List<HotelPriceModel> hotelPrices, LocalDate date) {
         for (HotelPriceModel hotelPrice : hotelPrices) {
-            if (hotelPrice.getDate().isEqual(date)) {
+            if (hotelPrice.getPriceDate().isEqual(date)) {
                 return hotelPrice;
             }
         }
         return null;
+    }
+
+    public void updateHotelPrice(LocalDate priceDate, BigDecimal price) {
+
+        HotelPriceModel hotelPriceModel = hotelPriceRepo.findByPriceDate(priceDate);
+        hotelPriceModel.setPrice(price);
+        hotelPriceRepo.save(hotelPriceModel);
+
     }
 }

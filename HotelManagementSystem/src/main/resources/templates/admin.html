@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/updatePrice}" method="post">
+    <table>
+        <tr th:each="admin: ${admin}">
+            <td th:text="${admin.priceDate}"></td>
+            <td>
+                <input type="text" name="price" th:value="${admin.price}" />
+            </td>
+            <td>
+                <input type="hidden" name="priceDate" th:value="${admin.priceDate}" />
+                <input type="submit" value="Update" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
