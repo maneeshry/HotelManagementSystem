@@ -9,37 +9,29 @@ public class HotelModel {
         String last_name;
         String email;
         String phone_number;
-//        String address;
-//        String city;
-//        String state;
-//        int zip_code;
         LocalDate check_in;
         LocalDate check_out;
         String room_type;
         int adults;
         int children;
-        int pets;
+
 
         public HotelModel() {
 
         }
 
         public HotelModel(String first_name, String last_name, String email, String phone_number, String address, String city,
-                          String state, int zip_code, LocalDate check_in, LocalDate check_out, String room_type, int adults, int children, int pets) {
+                          String state, int zip_code, LocalDate check_in, LocalDate check_out, String room_type, int adults, int children) {
             this.first_name = first_name;
             this.last_name = last_name;
             this.email = email;
             this.phone_number = phone_number;
-//            this.address = address;
-//            this.city = city;
-//            this.state = state;
-//            this.zip_code = zip_code;
             this.check_in = check_in;
             this.check_out = check_out;
             this.room_type = room_type;
             this.adults = adults;
             this.children = children;
-            this.pets = pets;
+
         }
 
         public String getFirst_name() {
@@ -73,38 +65,7 @@ public class HotelModel {
         public void setPhone_number(String phone_number) {
             this.phone_number = phone_number;
         }
-//
-//        public String getAddress() {
-//            return this.address;
-//        }
-//
-//        public void setAddress(String address) {
-//            this.address = address;
-//        }
-//
-//        public String getCity() {
-//            return this.city;
-//        }
-//
-//        public void setCity(String city) {
-//            this.city = city;
-//        }
-//
-//        public String getState() {
-//            return this.state;
-//        }
-//
-//        public void setState(String state) {
-//            this.state = state;
-//        }
-//
-//        public int getZip_code() {
-//            return this.zip_code;
-//        }
-//
-//        public void setZip_code(int zip_code) {
-//            this.zip_code = zip_code;
-//        }
+
 
         public LocalDate getCheck_in() {
             return this.check_in;
@@ -146,13 +107,7 @@ public class HotelModel {
             this.children = children;
         }
 
-        public int getPets() {
-            return this.pets;
-        }
 
-        public void setPets(int pets) {
-            this.pets = pets;
-        }
 
     }
 

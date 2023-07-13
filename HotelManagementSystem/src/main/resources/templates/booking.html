@@ -18,17 +18,17 @@
     <input type="text" id="email" name="email" placeholder="Your email.." /> <br>
     <label for="phone_number">Phone</label>
     <input type="text" id="phone_number" name="phone_number" placeholder="Your phone number.." /> <br>
+
     <label for="check_in">Check-in</label>
-    <input type="date" id="check_in" name="check_in" placeholder="Your check-in date.." /> <br>
+    <input type="text" id="check_in" name="check_in" th:value="${check_in}" /> <br>
     <label for="check_out">Check-out</label>
-    <input type="date" id="check_out" name="check_out" placeholder="Your check-out date.." /> <br>
-    <label for="room_type">Room</label>
-    <select id="room_type" name="room_type">
-      <option value="King Smoking">King Smoking</option>
-      <option value="King Non-Smoking">King Non-smoking</option>
-      <option value="Queen Smoking">Queen Smoking</option>
-      <option value="Queen Non-Smoking">Queen Non-smoking</option>
-    </select> <br>
+    <input type="text" id="check_out" name="check_out" th:value="${check_out}" /> <br>
+    <label for="room_type">Room Type</label>
+    <input type="text" id="room_type" name="room_type" th:value="${room_type}" /> <br>
+    <label for="total_price">Room Type</label>
+    <input type="text" id="total_price" name="total_price" th:value="${total_price}" /> <br>
+    <label for="nights">Nights</label>
+    <input type="text" id="nights" name="nights" th:value="${nights}" /> <br>
     <label for="adults">Adults</label>
     <select id="adults" name="adults">
       <option value="1">1</option>
@@ -47,14 +47,10 @@
       <option value="4">4</option>
       <option value="5">5</option>
     </select> <br>
-
-    <label for="pets">Pets</label>
-    <select id="pets" name="pets">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-    </select> <br>
     <input type="submit" value="Submit" />
+  </form>
+  <form action="#" th:action="@{/checkPrice}" th:object="${formData}" method="get">
+    <input type="submit" value="Go Back" />
   </form>
 </div>
 </body>

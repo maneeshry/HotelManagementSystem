@@ -6,9 +6,11 @@
 </head>
 <body>
 <div class="price" id="price">
-  <form action="#" th:action="@{/form}"  method="get">
+  <form action="#" th:action="@{/form}"  th:object="${formData}" method="get">
 <h2>Price</h2>
-
+      <p>Checkin Date: <span th:text="${check_in}"></span></p>
+      <p>Checkout Date: <span th:text="${check_out}"></span></p>
+      <p>Room Type: <span th:text="${room_type}"></span></p>
 <p>The total price for your stay is: <span th:text="${totalPrice}"></span></p>
       <input type="submit" value="Continue booking..." />
   </form>

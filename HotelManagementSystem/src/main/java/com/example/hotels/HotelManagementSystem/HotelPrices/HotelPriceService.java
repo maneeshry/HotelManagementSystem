@@ -15,6 +15,17 @@ public class HotelPriceService {
     @Autowired
     private HotelPriceRepo hotelPriceRepo;
 
+//    public HotelPriceService()
+//    {
+//        try {
+//            generateHotelPricesForThreeMonths();
+//        }
+//        catch (Exception e)
+//        {
+//            e.getStackTrace();
+//        }
+//    }
+
 
 
     @Transactional
@@ -55,12 +66,13 @@ public class HotelPriceService {
     }
 
     public BigDecimal calculateTotalPrice(LocalDate checkInDate, LocalDate checkOutDate) {
+        BigDecimal tax = BigDecimal.valueOf(12); // Use BigDecimal for tax
+
         List<HotelPriceModel> hotelPrices = hotelPriceRepo.findByPriceDateBetween(checkInDate, checkOutDate);
         LocalDate currentDate = checkInDate;
-        BigDecimal totalPrice = BigDecimal.ZERO;//map.get(currentDate);//BigDecimal.ZERO;
-        //System.out.println(currentDate+" "+totalPrice);
+        BigDecimal totalPrice = BigDecimal.ZERO;
 
-        while (currentDate.isBefore(checkOutDate) || currentDate.isEqual(checkOutDate)) {
+        while (currentDate.isBefore(checkOutDate)) {
             HotelPriceModel hotelPrice = getHotelPriceForDate(hotelPrices, currentDate);
             if (hotelPrice != null) {
                 totalPrice = totalPrice.add(hotelPrice.getPrice());
@@ -68,8 +80,12 @@ public class HotelPriceService {
             currentDate = currentDate.plusDays(1);
         }
 
-        return totalPrice;
+        BigDecimal taxAmount = totalPrice.multiply(tax).divide(BigDecimal.valueOf(100));
+        BigDecimal totalPriceWithTax = totalPrice.add(taxAmount);
+
+        return totalPriceWithTax;
     }
+
 
     private HotelPriceModel getHotelPriceForDate(List<HotelPriceModel> hotelPrices, LocalDate date) {
         for (HotelPriceModel hotelPrice : hotelPrices) {

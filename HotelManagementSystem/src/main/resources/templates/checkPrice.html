@@ -9,12 +9,12 @@
 <h1>Thank you for choosing this hotel</h1><br>
 <h4>Please fill the below form</h4>
 <div class="price" id="price">
-    <form action="#" th:action="@{/getPrice}" th:object="${priceData}" method="post">
+    <form action="#" th:action="@{/getPrice}" th:object="${formData}" method="post">
 
         <label for="check_in">Check-in</label>
-        <input type="date" id="check_in" name="check_in" placeholder="Your check-in date.." /> <br>
+        <input type="date" id="check_in" name="check_in" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}", th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}  " /> <br>
         <label for="check_out">Check-out</label>
-        <input type="date" id="check_out" name="check_out" placeholder="Your check-out date.." /> <br>
+        <input type="date" id="check_out" name="check_out" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}", th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}  " /> <br>
         <label for="room_type">Room</label>
         <select id="room_type" name="room_type">
             <option value="King Smoking">King Smoking</option>
