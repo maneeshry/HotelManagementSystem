@@ -15,22 +15,11 @@ public class HotelPriceService {
     @Autowired
     private HotelPriceRepo hotelPriceRepo;
 
-//    public HotelPriceService()
-//    {
-//        try {
-//            generateHotelPricesForThreeMonths();
-//        }
-//        catch (Exception e)
-//        {
-//            e.getStackTrace();
-//        }
-//    }
-
 
 
     @Transactional
     public void generateHotelPricesForThreeMonths() {
-        HotelPriceModel hotelPriceModel = new HotelPriceModel();
+        HotelPriceModel hotelPriceModel;
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusMonths(3);
         LocalDate currentDate = startDate;
@@ -41,6 +30,10 @@ public class HotelPriceService {
             hotelPriceModel = new HotelPriceModel();
             hotelPriceModel.setPriceDate(currentDate);
             hotelPriceModel.setPrice(price);
+            hotelPriceModel.setKingsmoking(4);
+            hotelPriceModel.setKing_non_smoking(4);
+            hotelPriceModel.setQueen_smoking(4);
+            hotelPriceModel.setQueen_non_smoking(4);
             hotelPriceRepo.save(hotelPriceModel);
             currentDate = currentDate.plusDays(1);
         }
@@ -48,8 +41,7 @@ public class HotelPriceService {
     }
 
     private BigDecimal generatePriceBasedOnDate(LocalDate date) {
-        // Implement your logic to generate price based on the date
-        // This is just an example
+
         if (date.getDayOfWeek().getValue() <= 4) { // Monday to Thursday
             return new BigDecimal("75");
         }
@@ -65,8 +57,10 @@ public class HotelPriceService {
         }
     }
 
+
+
     public BigDecimal calculateTotalPrice(LocalDate checkInDate, LocalDate checkOutDate) {
-        BigDecimal tax = BigDecimal.valueOf(12); // Use BigDecimal for tax
+        BigDecimal tax = BigDecimal.valueOf(12);
 
         List<HotelPriceModel> hotelPrices = hotelPriceRepo.findByPriceDateBetween(checkInDate, checkOutDate);
         LocalDate currentDate = checkInDate;

@@ -28,6 +28,7 @@
         <tr th:each="admin: ${admin}">
             <td th:text="${admin.priceDate}"></td>
             <td>
+                <span th:text="${#temporals.format(admin.priceDate, 'EEEE')}"></span>
                 <input type="text" name="price" th:value="${admin.price}" />
             </td>
             <td>

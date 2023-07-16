@@ -49,11 +49,12 @@ public class HotelPriceController {
                                Model model) {
 
         BigDecimal totalPrice = service.calculateTotalPrice(checkInDate, checkOutDate);
-        model.addAttribute("check_in",checkInDate);
-        model.addAttribute("check_out",checkOutDate);
+        model.addAttribute("check_in", checkInDate);
+        model.addAttribute("check_out", checkOutDate);
         model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("room_type",room_type);
+        model.addAttribute("room_type", room_type);
         return "redirect:/form?check_in=" + checkInDate + "&check_out=" + checkOutDate + "&room_type=" + room_type;
+
     }
 
     @PostMapping("/getPrice")

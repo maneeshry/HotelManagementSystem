@@ -4,6 +4,7 @@ package com.example.hotels.HotelManagementSystem;
 
 
 import com.example.hotels.HotelManagementSystem.HotelPrices.HotelPriceModel;
+import com.example.hotels.HotelManagementSystem.HotelPrices.HotelPriceRepo;
 import com.example.hotels.HotelManagementSystem.HotelPrices.HotelPriceService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -32,6 +33,9 @@ public class HotelController {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private HotelPriceRepo hotelPriceRepo;
 
     @Autowired
     private HotelPriceService service;
@@ -85,6 +89,43 @@ public class HotelController {
 
         //send email
         sendEmail(formData,numberOfNights,totalPrice);
+
+        String room = formData.getRoom_type();
+
+
+
+        int available = hotelPriceRepo.getAvailabilityByDate(formData.getCheck_in(),room);
+        HotelPriceModel hotelPriceModel = hotelPriceRepo.findByPriceDate(formData.getCheck_in());
+
+
+        switch (room)
+        {
+            case "King Smoking":
+                System.out.println(room + "*************" + available);
+                available--;
+                hotelPriceModel.setKingsmoking(available);
+                break;
+
+            case "King Non-Smoking":
+                System.out.println(room + "*************" + available);
+                available--;
+                hotelPriceModel.setKing_non_smoking(available);
+                break;
+
+            case "Queen Smoking":
+                System.out.println(room + "*************" + available);
+                available--;
+                hotelPriceModel.setQueen_smoking(available);
+                break;
+
+            case "Queen Non-Smoking":
+                System.out.println(room + "*************" + available);
+                available--;
+                hotelPriceModel.setQueen_non_smoking(available);
+                break;
+        }
+        hotelPriceRepo.save(hotelPriceModel);
+
         return "email";
     }
 
