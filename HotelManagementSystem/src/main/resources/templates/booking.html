@@ -34,19 +34,20 @@
       </div>
       <div class="mb-3">
         <label for="check_in" class="form-label">Check-in</label>
-        <span class="form-control" id="check_in" name="check_in" th:value="${check_in}"></span>
+        <input type="text" class="form-control" id="check_in" name="check_in" th:value="${check_in}" readonly>
       </div>
       <div class="mb-3">
         <label for="check_out" class="form-label">Check-out</label>
-        <span class="form-control" id="check_out" name="check_out" th:text="${check_out}"></span>
+        <input type="text" class="form-control" id="check_out" name="check_out" th:value="${check_out}" readonly>
       </div>
       <div class="mb-3">
         <label for="room_type" class="form-label">Room Type</label>
-        <span class="form-control" id="room_type" th:text="${room_type}"></span>
+        <input type="text" class="form-control" id="room_type" name="room_type" th:value="${room_type}" readonly />
       </div>
+
       <div class="mb-3">
         <label for="total_price" class="form-label">Total Price</label>
-        <input type="text" class="form-control" id="total_price" name="total_price" th:value="${total_price}">
+        <input type="text" class="form-control" id="total_price" name="total_price" th:value="${total_price}" readonly>
       </div>
       <div class="mb-3">
         <label for="nights" class="form-label">Nights</label>

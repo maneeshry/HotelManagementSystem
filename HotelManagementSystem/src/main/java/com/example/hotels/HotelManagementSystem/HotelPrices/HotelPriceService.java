@@ -97,4 +97,9 @@ public class HotelPriceService {
         hotelPriceRepo.save(hotelPriceModel);
 
     }
+
+    public int checkAvailability()
+    {
+        return 0;
+    }
 }

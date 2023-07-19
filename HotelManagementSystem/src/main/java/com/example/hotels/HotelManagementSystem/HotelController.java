@@ -101,25 +101,21 @@ public class HotelController {
         switch (room)
         {
             case "King Smoking":
-                System.out.println(room + "*************" + available);
                 available--;
                 hotelPriceModel.setKingsmoking(available);
                 break;
 
             case "King Non-Smoking":
-                System.out.println(room + "*************" + available);
                 available--;
                 hotelPriceModel.setKing_non_smoking(available);
                 break;
 
             case "Queen Smoking":
-                System.out.println(room + "*************" + available);
                 available--;
                 hotelPriceModel.setQueen_smoking(available);
                 break;
 
             case "Queen Non-Smoking":
-                System.out.println(room + "*************" + available);
                 available--;
                 hotelPriceModel.setQueen_non_smoking(available);
                 break;

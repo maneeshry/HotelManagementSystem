@@ -28,15 +28,22 @@
                        th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
                        th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
             </div>
-            <div class="mb-3">
-                <label for="room_type" class="form-label">Room</label>
-                <select class="form-select" id="room_type" name="room_type">
-                    <option value="King Smoking">King Smoking</option>
-                    <option value="King Non-Smoking">King Non-smoking</option>
-                    <option value="Queen Smoking">Queen Smoking</option>
-                    <option value="Queen Non-Smoking">Queen Non-smoking</option>
-                </select>
+            <div th:if="${!roomAvailable}">
+                <div class="alert alert-warning" role="alert">
+                    The selected room type is not available. Please choose a different room type.
+                </div>
             </div>
+                <div class="mb-3">
+                    <label for="room_type" class="form-label">Room</label>
+                    <select class="form-select" id="room_type" name="room_type">
+                        <option value="King Smoking" th:selected="${room_type == 'King Smoking'}">King Smoking</option>
+                        <option value="King Non-Smoking" th:selected="${room_type == 'King Non-Smoking'}">King Non-smoking</option>
+                        <option value="Queen Smoking" th:selected="${room_type == 'Queen Smoking'}">Queen Smoking</option>
+                        <option value="Queen Non-Smoking" th:selected="${room_type == 'Queen Non-Smoking'}">Queen Non-smoking</option>
+                    </select>
+                </div>
+
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

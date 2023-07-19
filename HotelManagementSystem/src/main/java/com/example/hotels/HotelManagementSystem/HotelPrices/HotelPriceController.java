@@ -23,6 +23,8 @@ public class HotelPriceController {
     @GetMapping("/checkPrice")
     public String calculatePrice(Model model) {
         model.addAttribute("formData", new HotelModel());
+        boolean roomAvailable=true;
+        model.addAttribute("roomAvailable",roomAvailable);
         return "checkPrice";
     }
 
@@ -53,6 +55,16 @@ public class HotelPriceController {
         model.addAttribute("check_out", checkOutDate);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("room_type", room_type);
+        int available = hotelPriceRepo.getAvailabilityByDate(formData.getCheck_in(),room_type);
+        System.out.println(available);
+        boolean roomAvailable=true;
+        if(available < 4)
+        {
+            roomAvailable= false;
+            model.addAttribute("roomAvailable",roomAvailable);
+            return "checkPrice";
+        }
+        model.addAttribute("roomAvailable",roomAvailable);
         return "redirect:/form?check_in=" + checkInDate + "&check_out=" + checkOutDate + "&room_type=" + room_type;
 
     }
@@ -62,6 +74,7 @@ public class HotelPriceController {
         LocalDate checkInDate = formData.getCheck_in();
         LocalDate checkOutDate = formData.getCheck_out();
         String room_type = formData.getRoom_type();
+
         return "redirect:/getPrice?check_in=" + checkInDate + "&check_out=" + checkOutDate +"&room_type=" + room_type;
     }
 
